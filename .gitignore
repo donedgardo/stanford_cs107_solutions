@@ -1,0 +1,64 @@
+#fill out .gitignore for cmake project
+# CMake build directories
+/build/
+/build-*/
+ /cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+CMakeScripts/
+Testing/
+_make/
+/install/
+_install/
+_deps/
+cmake_install.cmake
+CTestTestfile.cmake
+DartConfiguration.tcl
+
+# CMake/Ninja/Make generated files
+Makefile
+*.make
+build.ninja
+rules.ninja
+.ninja_deps
+.ninja_log
+compile_commands.json
+install_manifest.txt
+
+# Binaries and artifacts
+*.o
+*.obj
+*.lo
+*.la
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+
+# Coverage files
+*.gcda
+*.gcno
+*.gcov
+lcov.info
+
+# Logs and dumps
+*.log
+core
+core.*
+
+# IDE/editor
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Caches
+.cache/
