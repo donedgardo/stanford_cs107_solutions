@@ -3,7 +3,7 @@
 #include "concat_all.h"
 
 TEST(ConcatAll, Empty) {
-    NodeType list[0];
+    NodeType * list = NilNodeNew();
     const char *answer = ConcatAll(list);
     const char* expected = "";
     EXPECT_STREQ(answer, expected);
