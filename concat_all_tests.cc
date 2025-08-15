@@ -19,7 +19,6 @@ TEST(ConcatAll, IgnoresIntegers) {
 }
 
 
-
 TEST(ConcatAll, OneString) {
     auto stringNode = StringNodeNew("Frodo");
     const char *answer = ConcatAll(stringNode);
@@ -28,16 +27,28 @@ TEST(ConcatAll, OneString) {
     free(stringNode);
 }
 
-// TEST(ConcatAll, ListMix) {
-//     auto heapString1 = (NodeType *)(strdup("Frodo"));
-//     NodeType list[2];
-//     list[0] = String;
-//     list[1] = *heapString1;
-//     const char *answer = ConcatAll(list);
-//     const char* expected = "Frodo";
-//     EXPECT_STREQ(answer, expected);
-//     free(heapString1);
-// }
+static NodeType* NilNodeNew() {
+    auto *nilNode = (NodeType *)(malloc(sizeof(NodeType)));
+    *nilNode = Nil;
+    return nilNode;
+}
+
+TEST(ConcatAll, StringList) {
+    auto *stringNode = StringNodeNew("Frodo");
+    auto *stringNode2 = StringNodeNew("Baggins");
+    auto *nillNode = NilNodeNew();
+    auto *tail = ListNodeNew(stringNode2, nillNode);
+    auto *head = ListNodeNew(stringNode, tail);
+    const char* answer = ConcatAll(head);
+    const char* expected = "FrodoBaggins";
+    EXPECT_STREQ(answer, expected);
+    if (answer) {
+        free((char *)answer);
+    }
+    free(stringNode);
+    free(stringNode2);
+    free(nillNode);
+}
 
 
 TEST(NodeTypeTest, StringNew) {
@@ -47,19 +58,20 @@ TEST(NodeTypeTest, StringNew) {
     EXPECT_STREQ((char *)(stringNode+ 1), expected);
 }
 
-// NodeType * ListNodeNew(const NodeType* head,  const NodeType* tail) {
-//     NodeType * listNode = (NodeType *)malloc(sizeof(NodeType) + sizeof(NodeType *) * 2);
-//     listNode[0] = List;
-//     listNode[1] = *head;
-//     listNode[2] = *tail;
-//     return listNode;
-// }
-// TEST(NodeTypeTest, ListStrings) {
-//     const NodeType * stringNode = StringNodeNew("Frodo");
-//     const NodeType * stringNode2 = StringNodeNew("Baggins");
-//     const NodeType * listStringNode = ListNodeNew(stringNode, stringNode2);
-//     EXPECT_EQ(listStringNode[0], List);
-//     NodeType** pair = (NodeType**)listStringNode[1];
-//     EXPECT_STREQ((char *)pair[0], strdup("Frodo"));
-//     EXPECT_STREQ((char *)pair[1], strdup("Baggins"));
-// }
+
+TEST(NodeTypeTest, ListStrings) {
+    NodeType * stringNode = StringNodeNew("Frodo");
+    NodeType * stringNode2 = StringNodeNew("Baggins");
+    NodeType * listStringNode = ListNodeNew(stringNode, stringNode2);
+    EXPECT_EQ(listStringNode[0], List);
+    auto **payload = (NodeType**)(listStringNode + 1);
+    auto *headPtr = payload[0];
+    const char * expected = "Frodo";
+    EXPECT_STREQ((char *)(headPtr + 1), expected);
+    auto *tailPtr = payload[1];
+    expected = "Baggins";
+    EXPECT_STREQ((char *)(tailPtr + 1), expected);
+    free(stringNode);
+    free(stringNode2);
+    free(listStringNode);
+}
