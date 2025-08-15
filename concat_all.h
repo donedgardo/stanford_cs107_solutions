@@ -1,8 +1,4 @@
 #pragma once
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 
 typedef enum {
     Integer, String, List, Nil
@@ -56,7 +52,3 @@ static NodeType* NilNodeNew() {
     *nilNode = Nil;
     return nilNode;
 }
-
-#ifdef __cplusplus
-}
-#endif
