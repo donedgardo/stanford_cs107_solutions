@@ -51,6 +51,12 @@ static NodeType * ListNodeNew(NodeType* head,  NodeType* tail) {
     return node;
 }
 
+static NodeType* NilNodeNew() {
+    auto *nilNode = (NodeType *)(malloc(sizeof(NodeType)));
+    *nilNode = Nil;
+    return nilNode;
+}
+
 #ifdef __cplusplus
 }
 #endif

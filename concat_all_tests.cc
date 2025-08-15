@@ -27,11 +27,7 @@ TEST(ConcatAll, OneString) {
     free(stringNode);
 }
 
-static NodeType* NilNodeNew() {
-    auto *nilNode = (NodeType *)(malloc(sizeof(NodeType)));
-    *nilNode = Nil;
-    return nilNode;
-}
+
 
 TEST(ConcatAll, StringList) {
     auto *stringNode = StringNodeNew("Frodo");
