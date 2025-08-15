@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.14)
 project(concat_all)
 
+# Ensure MSVC uses the DLL runtime (/MD, /MDd) to match GoogleTest
+cmake_policy(SET CMP0091 NEW)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
