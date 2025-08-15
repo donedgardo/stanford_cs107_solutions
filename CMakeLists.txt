@@ -3,7 +3,7 @@ project(concat_all)
 
 # Ensure MSVC uses the DLL runtime (/MD, /MDd) to match GoogleTest
 cmake_policy(SET CMP0091 NEW)
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL" CACHE STRING "" FORCE)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,7 +21,6 @@ add_executable(concat_all
         concat_all.h)
 
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-
 enable_testing()
 
 target_link_libraries(
@@ -31,5 +30,3 @@ target_link_libraries(
 
 include(GoogleTest)
 gtest_discover_tests(concat_all)
-
-
